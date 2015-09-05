@@ -1,0 +1,37 @@
+# 数据描述
+
+
+CSV {
+    string      name             // 文件名 xxx.csv
+    string      trimmedName      // 文件名 xxx
+    string      fileName         // 文件名 d:/xxx.csv
+    <<value>>   data          // 数据 [line][column]
+}
+
+# class
+Manage {
+    <string> templateNames         // 管理类的模板名
+    <string> clsTemplateName       // 类的默认模板名
+
+private:
+    <Template> _templates
+    <Template> _clsTemplates
+}
+Var {
+    string      name            // 属性名
+    string      value           // 属性值
+    string      type            // 属性类型
+}
+Class {
+    CSV         csv              // 对应的csv
+    string      templateNames    // 对应的模板名
+    string      name             // 类名
+    <string>    indexNames       // 索引属性名列表
+    <str|num>   indexValues      // 索引属性值列表
+    bool        isMap            // 是否索引为key
+    <Var>       vars             // 属性列表
+    
+private:
+    Template _templates         // 对应的模板
+}
+

@@ -1,0 +1,66 @@
+
+template(StaticData.txt)
+clsTemplate(class.txt)
+
+
+------------------------------------------
+
+UserShopStaticVo    shop.csv
+template(template.txt)
+index(id,frushTime)
+int id
+json frushTime
+int limitLevel
+-int notVipRetainedTime
+-json randomItemNum
+int frushItemId
+json frushItemNum
+<string> randomSession
+int openSpendDiamonds
+
+ComposeStaticVo compose.csv
+index(id)
+int id
+json material
+int cost
+
+EffectStaticVo effect.csv
+index(id)
+int id
+-string name
+string expr
+
+BuffStaticVo buff.csv
+index(id)
+int id
+int type
+<float> timeList
+bool isForever          // 是否永不撤销
+<int> effList           // 效果列表
+-<int> effChangeList     // 变化的效果列表
+int skillBuffId
+-int empty
+-int empty
+-int empty
+string shader           // shader
+string armature         // 
+float pos               // y坐标的比例
+string sceneArmature    // 场景动画
+bool isSpine
+
+RandomNameVo randName.csv
+index()
+int type
+string name
+
+EnchantMagicVo enchantingMagic.csv
+index(quality)
+int quality //神兵品质
+json EnchantingLimit//每个等级神兵对应附魔值
+
+
+StoryStaticVo dialogue.csv
+index(mapId,timesId)
+int mapId
+int timesId
+*<string> storyList

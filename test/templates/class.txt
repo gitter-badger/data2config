@@ -1,0 +1,7 @@
+return {
+{% for class in allClassData -%}
+[{% for v in class.indexvalues %}{{ v }}{% if not loop.last %}_{% endif %}{% endfor %}]={{ '{' }}
+{%- for var in class.varlist -%}{{ var.name }}={{ var.value }}{% if not loop.last %},{% endif %}{% endfor -%}
+{{ '}' }}{% if not loop.last %},{% endif %}
+{% endfor -%}
+}
