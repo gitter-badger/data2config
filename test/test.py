@@ -3,19 +3,25 @@
 
 import sys
 import os, os.path
-path = os.path.normpath(os.path.join(__file__, '../..'))
-sys.path.append(path)
+abspath = os.path.abspath(os.path.join(__file__, '../..'))
+sys.path.append(abspath)
+
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 
 from jinja2 import Template
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 from d2c.parsers.defParser import DefParser
 import csv
 import os, os.path
 import sys
 
+testpath = os.path.dirname(os.path.abspath(__file__))
+templatespath = os.path.join(testpath, 'myapp/templates')
+
 def doxxx():
-    env = Environment(loader=PackageLoader('d2c', 'templates'))
+    env = Environment(loader=FileSystemLoader('d2c', templatespath))
     
 
     # simplate data
@@ -61,16 +67,20 @@ def writefile(filename, data):
 
 
 def testTemplate():
-    env = Environment(loader=PackageLoader('test', 'templates'))
 
-    data = readfile('staticvo.txt')
+    env = Environment(loader=FileSystemLoader(templatespath))
+    print templatespath
+    data = readfile(os.path.join(testpath, 'myapp/staticvo.txt'))
     parser = DefParser()
     parser.parse(data)
+
+    # parser.setDataParse()
+
 
     manage = parser.manage
     template = env.get_template(manage.templateNames[0])
 
-    writefile('xxx.txt', template.render(allClasses=manage.classes))
+    writefile(os.path.join(testpath, 'dest/StaticData.lua'), template.render(allClasses=manage.classes))
 
 
     

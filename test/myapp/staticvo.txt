@@ -1,5 +1,5 @@
 
-template(StaticData.txt)
+template(StaticData.txt|ssss, dsssss.txt|aaa)
 clsTemplate(class.txt)
 
 

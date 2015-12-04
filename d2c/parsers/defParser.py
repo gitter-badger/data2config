@@ -14,7 +14,7 @@ P_WHITESPACE= '\s+'                     # 空白
 P_COMMA_SPACE= '\s*,\s*'                # 逗号
 
 # remove comment
-def rmComment(s):
+def removeComment(s):
     # '#' or '//' is comment
     l = len(s)
     idx1 = s.find('#')
@@ -30,7 +30,7 @@ def rmComment(s):
 # return <string> or None(没有匹配)
 # 读取模式列表
 def readPatternList(s, pattern):
-    s = rmComment(s).strip()
+    s = removeComment(s).strip()
     res = re.search(pattern, s)
     if res is None:
         return None
@@ -45,7 +45,7 @@ class ManageParser:
         s = s.strip()
         lines = re.split('\r\n|\n', s)
         for line in lines:
-            line = rmComment(line).strip()
+            line = removeComment(line).strip()
             if len(line) > 0:
                 arr = readPatternList(line, P_TEMPLATES)
                 if arr is not None:
@@ -68,7 +68,7 @@ class ClassParser:
         arr = re.split('\r\n|\n', s)
         lines = []
         for line in arr:
-            line = rmComment(line).strip()
+            line = removeComment(line).strip()
             if len(line) > 0:
                 lines.append(line)
 
@@ -119,7 +119,7 @@ class ClassParser:
             cls.isMap = False
 
     def readVar(self, s, cls):
-        s = rmComment(s).strip()
+        s = removeComment(s).strip()
         if len(s) == 0:
             return None
         arr = re.split(P_WHITESPACE, s)
