@@ -19,9 +19,15 @@ private:
 }
 Var {
     string      name            // 属性名
-    string      value           // 属性值
+    string      value           // 属性值  仅当Instance下有效
     string      type            // 属性类型
 }
+
+################## for class manager template ###################
+
+# 表示描述文件中的一个类，
+# 模板变量 classes<Class> 表示class数组
+# 模板变量 classmap<name, Class>
 Class {
     CSV         csv              // 对应的csv
     string      templateNames    // 对应的模板名
@@ -35,3 +41,16 @@ private:
     Template _templates         // 对应的模板
 }
 
+
+################### for csv file template #####################
+
+
+# 表示csv里的一行数据
+# 模板变量 instances<Instance> 数组
+# 模板变量 instancemap<instanceKey, Instance> 
+Instance {
+    Class       class           // 对应的类
+    string      key             // 实力的key变量 (仅当是map形式的时候)
+    string      value           // 实例的key值   (仅当是map形式的时候)
+    <Var>       vars            // 属性列表 等同于 class.vars var.type 有效
+}

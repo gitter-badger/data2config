@@ -1,11 +1,11 @@
 
-template(StaticData.txt|ssss, dsssss.txt|aaa)
+template(StaticData.txt, dsssss.txt|aaa)
 clsTemplate(class.txt)
 
 
 ------------------------------------------
 
-UserShopStaticVo    shop.csv
+UserShopStaticVo shop.csv
 template(template.txt)
 index(id,frushTime)
 int id

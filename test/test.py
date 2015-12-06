@@ -13,12 +13,15 @@ sys.path.append(abspath)
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
 from d2c.parsers.defParser import DefParser
+from d2c.d2c import D2C
+from d2c.config import Config
 import csv
 import os, os.path
 import sys
 
 testpath = os.path.dirname(os.path.abspath(__file__))
 templatespath = os.path.join(testpath, 'myapp/templates')
+myapppath = os.path.join(testpath, 'myapp')
 
 def doxxx():
     env = Environment(loader=FileSystemLoader('d2c', templatespath))
@@ -65,22 +68,33 @@ def writefile(filename, data):
         f.write(data)
         f.close()
 
-
+# self.idlPath = None                # 描述文档路径
+#         self.templateDir = ''              # 模板文件目录
+#         self.outputDir = None              # 输出文件目录
+#         self.dataDir = None   
 def testTemplate():
 
-    env = Environment(loader=FileSystemLoader(templatespath))
-    print templatespath
-    data = readfile(os.path.join(testpath, 'myapp/staticvo.txt'))
-    parser = DefParser()
-    parser.parse(data)
+    config = Config()
+    config.idlPath = os.path.join(myapppath, 'staticvo.txt')
+    config.templateDir = os.path.join(myapppath, 'templates')
+    config.outputDir = os.path.join(myapppath, '../dest')
+    config.dataDir = os.path.join(myapppath, 'csv')
+    d2c = D2C(config)
+    d2c.doD2c()
 
-    # parser.setDataParse()
+    # env = Environment(loader=FileSystemLoader(templatespath))
+    # print templatespath
+    # data = readfile(os.path.join(testpath, 'myapp/staticvo.txt'))
+    # parser = DefParser()
+    # parser.parse(data)
+
+    # # parser.setDataParse()
 
 
-    manage = parser.manage
-    template = env.get_template(manage.templateNames[0])
+    # manage = parser.manage
+    # template = env.get_template(manage.templateNames[0])
 
-    writefile(os.path.join(testpath, 'dest/StaticData.lua'), template.render(allClasses=manage.classes))
+    # writefile(os.path.join(testpath, 'dest/StaticData.lua'), template.render(allClasses=manage.classes))
 
 
     

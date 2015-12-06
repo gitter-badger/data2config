@@ -1,8 +1,10 @@
+filename:StaticData.lua
+-------------------------------------------
 local CURRENT_PACKAGE = ...
 CURRENT_PACKAGE = string.sub(CURRENT_PACKAGE, 1, -12)
 local manager = {}
 
-{% for class in allClasses -%}
+{% for class in classes -%}
 manager.{{ class.name }}_Data = require(CURRENT_PACKAGE..".{{ class.name }}_Data")
 function manager.get{{ class.name }}(
 		{#- index names -#}
@@ -18,7 +20,7 @@ end
 {% endfor %}
 
 function manager.clear()
-{% for class in allClasses -%}
+{% for class in classes -%}
 _G.package[CURRENT_PACKAGE..".{{ class.name }}_Data"]=nil
 {% endfor -%}
 end

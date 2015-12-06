@@ -12,7 +12,7 @@ class CSVVo:
         self.data = data
         self.setFileName(fileName)
 
-    def setFileName(fileName):
+    def setFileName(self, fileName):
         self.fileName = fileName
         idx = max(fileName.rfind('/'), fileName.rfind('\\'))
         self.name = fileName if -1 == idx else fileName[idx+1:]
@@ -63,7 +63,7 @@ class ClassVo:
         self.vars = []                          # <VarVo> 变量列表
         self._templates = None                  # <Template> 模板
 
-    def setIndexNames(names):
+    def setIndexNames(self, names):
         # <string> names 索引的参数列表
 
         if names is None or len(names) == 0:
@@ -80,7 +80,7 @@ class ClassVo:
                 raise NameError('can not parse getItem for key: %s' % (name))
 
 
-    def _getVar(varName):
+    def _getVar(self, varName):
         for v in self.vars:
             if v.name == varName:
                 return v

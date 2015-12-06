@@ -4,10 +4,11 @@
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
 from parsers.defParser import DefParser
-from function.py import *
+from function import *
 import csv
 import os, os.path
 import sys
+
 
 
 
@@ -30,6 +31,14 @@ class D2C:
 
         manage = parser.manage
         template = self._env.get_template(manage.templateNames[0])
+        print(template)
 
-        writefile(os.path.join(testpath, 'dest/StaticData.lua'), template.render(allClasses=manage.classes))
+        outputData = template.render(classes=manage.classes)
+        outputData, outputName = output_filter(outputData)
+        if (outputName is None):
+            outputName = template.name
+
+        outputName = os.path.join(self._config.outputDir, outputName)
+
+        writefile(outputName, outputData)
         

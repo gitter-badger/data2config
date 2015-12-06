@@ -2,7 +2,7 @@
 # coding=utf-8
 
 class Config:
-    def __init__():
+    def __init__(self):
         self.idlPath = None                # 描述文档路径
         self.templateDir = ''              # 模板文件目录
         self.outputDir = None              # 输出文件目录
