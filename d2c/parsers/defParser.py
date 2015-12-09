@@ -2,9 +2,8 @@
 # coding=utf-8
 
 import re
-from d2c.varVo import ClassVo
-from d2c.varVo import VarVo
-from d2c.varVo import ManageVo
+from d2c.varVo import *
+from d2c.function import indexOfKey
 
 
 P_INDEXS    = 'index\((.*)\)'           # index()
@@ -38,6 +37,16 @@ def readPatternList(s, pattern):
     return re.split(P_COMMA_SPACE, s)
 
 
+# return <TempleteInfo> or None(没有匹配)
+# 读取模板列表
+def readTempleteInfoList(s, pattern):
+    arr = readPatternList(s, pattern)
+    if arr is not None:
+        arr = [TemplateInfo(*x.split('|')) for x in arr]
+
+    return arr
+
+
 class ManageParser:
     def parse(self, s):
         mng = ManageVo()
@@ -47,14 +56,14 @@ class ManageParser:
         for line in lines:
             line = removeComment(line).strip()
             if len(line) > 0:
-                arr = readPatternList(line, P_TEMPLATES)
+                arr = readTempleteInfoList(line, P_TEMPLATES)
                 if arr is not None:
-                    mng.templateNames = arr
+                    mng.templates = arr
                 else:
-                    arr = readPatternList(line, P_CLS_TEMPLATES)
-                    mng.clsTemplateNames = arr
+                    arr = readTempleteInfoList(line, P_CLS_TEMPLATES)
+                    mng.clsTemplates = arr
 
-        if mng.templateNames is None or len(mng.templateNames) == 0:
+        if mng.templates is None or len(mng.templates) == 0:
             raise NameError('can not found template in manage')
 
         return mng
@@ -76,7 +85,7 @@ class ClassParser:
         # className and csvname
         self.readClsCsvName(lines[0], cls)
         # read template
-        idx = idx + self.readTemplates(lines[1], cls, manage.clsTemplateNames)
+        idx = idx + self.readTemplates(lines[1], cls)
         # read indexs
         idx = idx + 1
         self.readIndexs(lines[idx], cls)
@@ -87,6 +96,8 @@ class ClassParser:
                 raise NameError('repeat must at last var')
             if vo.isRepeat:
                 hasRepeat = True
+
+        self.setIndexs(cls)
 
         manage.classes.append(cls)
 
@@ -100,14 +111,9 @@ class ClassParser:
         cls.name = names[0].strip()
         cls.csvName = names[1].strip()
 
-    def readTemplates(self, s, cls, defaultNames):
-        arr = readPatternList(s, P_TEMPLATES)
-        if arr is None or len(arr) == 0:
-            cls.templateNames = defaultNames
-        elif arr is not None:
-            cls.templateNames = arr
-
-        return arr is not None
+    def readTemplates(self, s, cls):
+        cls.templates = readTempleteInfoList(s, P_TEMPLATES)
+        return cls.templates is not None
 
     def readIndexs(self, s, cls):
         arr = readPatternList(s, P_INDEXS)
@@ -140,6 +146,21 @@ class ClassParser:
         vo.isRepeat = addition.find('*') != -1
         cls.vars.append(vo)
         return vo
+
+    def setIndexs(self, cls):
+        cls.indexs = []
+        if not cls.isMap:
+            return
+        print 'names', cls.indexNames
+        print 'vars', cls.vars
+        for name in cls.indexNames:
+            print '---------', name
+            idx = indexOfKey(cls.vars, name, 'name')
+            if idx < 0:
+                raise NameError('can not found index name: %s in %s' % (name, cls.name))
+            cls.indexs.append(idx)
+
+        print cls.indexs, cls.vars
 
 
 

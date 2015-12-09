@@ -1,6 +1,6 @@
 
-template(StaticData.txt, dsssss.txt|aaa)
-clsTemplate(class.txt)
+template(staticData.txt|aaa.txt, staticData.txt)
+clsTemplate(classForMap.txt)
 
 
 ------------------------------------------
@@ -25,9 +25,17 @@ json material
 int cost
 
 EffectStaticVo effect.csv
+template(classForMap.txt|effectMap.lua)
 index(id)
 int id
--string name
+-lstring name
+string expr
+
+EffectArrayStaticVo effect.csv
+template(classForArray.txt|effectArray.lua)
+index()
+int id
+-lstring name
 string expr
 
 BuffStaticVo buff.csv
@@ -49,7 +57,7 @@ string sceneArmature    // 场景动画
 bool isSpine
 
 RandomNameVo randName.csv
-index()
+index(type)
 int type
 string name
 

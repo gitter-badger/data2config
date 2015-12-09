@@ -10,3 +10,8 @@ class ManagerRender:
 
     def render():
         pass
+
+
+class CSVReader:
+    def __init__(self):
+        pass

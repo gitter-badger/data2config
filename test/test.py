@@ -99,7 +99,7 @@ def testTemplate():
 
     
 def testCsv():
-    filename = 'csv/effect.csv'
+    filename = os.path.join(testpath, 'myapp/csv/effect.csv')
     with open(filename, 'rb') as f:
         reader = csv.reader(f)
         print type(reader)

@@ -1,26 +1,19 @@
 # 数据描述
 
 
-CSV {
-    string      name             // 文件名 xxx.csv
-    string      trimmedName      // 文件名 xxx
-    string      fileName         // 文件名 d:/xxx.csv
-    <<value>>   data          // 数据 [line][column]
-}
+
 
 # class
 Manage {
-    <string> templateNames         // 管理类的模板名
-    <string> clsTemplateName       // 类的默认模板名
-
-private:
-    <Template> _templates
-    <Template> _clsTemplates
+    <TemplateInfo> templates            // 管理类的模板名
+    <TemplateInfo> clsTemplates         // 类的默认模板名
 }
 Var {
     string      name            // 属性名
     string      value           // 属性值  仅当Instance下有效
+    string      valuew          // value wrap 例如string用"$value"包装
     string      type            // 属性类型
+    string      defaultValue    // 默认属性值
 }
 
 ################## for class manager template ###################
@@ -30,27 +23,42 @@ Var {
 # 模板变量 classmap<name, Class>
 Class {
     CSV         csv              // 对应的csv
-    string      templateNames    // 对应的模板名
+    <TemplateInfo> templates     // 模板信息
     string      name             // 类名
     <string>    indexNames       // 索引属性名列表
-    <str|num>   indexValues      // 索引属性值列表
+    <int>       indexs           // 索引值，从0开始
     bool        isMap            // 是否索引为key
     <Var>       vars             // 属性列表
-    
-private:
-    Template _templates         // 对应的模板
 }
 
 
 ################### for csv file template #####################
 
+# 表示输出文件信息
+# 模板变量 output
+OutputInfo {
+    string      name            // 文件名 xxx.lua
+    string      trimmedName     // 文件名 xxx
+    string      fileName        // 文件名 d:/xxx.lua
+}
+
+# 表示一张CSV表
+# 模板变量 sheet
+CSV {
+    string      name            // 文件名 xxx.csv
+    string      trimmedName     // 文件名 xxx
+    string      fileName        // 文件名 d:/xxx.csv
+    <RowData>   rows            // 每行数据
+}
+
 
 # 表示csv里的一行数据
-# 模板变量 instances<Instance> 数组
-# 模板变量 instancemap<instanceKey, Instance> 
-Instance {
+# 模板变量 rows<RowData> 数组
+# 模板变量 rowmap<rowKey, RowData> 
+RowData {
     Class       class           // 对应的类
     string      key             // 实力的key变量 (仅当是map形式的时候)
     string      value           // 实例的key值   (仅当是map形式的时候)
-    <Var>       vars            // 属性列表 等同于 class.vars var.type 有效
+    <string>    indexNames      // 索引属性名列表
+    <string>    indexValues     // 索引属性值列表
 }
