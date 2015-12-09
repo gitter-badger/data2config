@@ -1,5 +1,5 @@
 return {
-["1"]={id=1,name=[[嘯震千里]],expr="atk1=200+SL*30"},
+["1"]={id=1,name=[[嘯震"千里]],expr="atk1=200+SL*30"},
 ["2"]={id=2,name=[[攻擊速度提升]],expr="asp1=5+SL*0.5"},
 ["3"]={id=3,name=[[長槍突刺]],expr="atk1=80+SL*30"},
 ["4"]={id=4,name=[[風暴之錘]],expr="atk1=120+SL*15"},

@@ -5,7 +5,8 @@
 def getValueWrap(value, type):
     # 返回属性值的包装
     if 'string' == type:
-        return '"%s"' % (value)
+        # 转义 " 到 \"
+        return '"%s"' % (value.replace('"', r'\"'))
     elif 'lstring' == type:
         return '[[%s]]' % value
     elif 'int' == type:

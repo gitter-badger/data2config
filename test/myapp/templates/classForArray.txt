@@ -1,6 +1,6 @@
 return {
 {% for row in rows -%}
-    [{{ loop.index }}]={{ '{' }}
+    {{ '{' }}
     {%- for var in row.vars -%}{{ var.name }}={{ var.valuew }}{% if not loop.last %},{% endif %}{% endfor -%}{{ '}' }}
     {%- if not loop.last %},{% endif %}
 {% endfor -%}

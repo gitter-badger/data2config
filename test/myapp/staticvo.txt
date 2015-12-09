@@ -35,7 +35,7 @@ EffectArrayStaticVo effect.csv
 template(classForArray.txt|effectArray.lua)
 index()
 int id
--lstring name
+string name
 string expr
 
 BuffStaticVo buff.csv
