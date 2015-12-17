@@ -34,6 +34,8 @@ def readPatternList(s, pattern):
     if res is None:
         return None
     s = res.group(1).strip()
+    if len(s) == 0:
+        return []
     return re.split(P_COMMA_SPACE, s)
 
 
@@ -119,10 +121,9 @@ class ClassParser:
         arr = readPatternList(s, P_INDEXS)
         if arr is None:
             raise NameError('can not found index(...)')
-        cls.indexNames = arr
-        if len(arr[0]) == 0:
-            cls.indexNames = ['idx']
-            cls.isMap = False
+        if len(arr) > 0:
+            cls.isMap = True
+            cls.indexNames = arr
 
     def readVar(self, s, cls):
         s = removeComment(s).strip()
@@ -144,23 +145,33 @@ class ClassParser:
         vo.isDel = addition.find('-') != -1
         vo.isPercent = addition.find('%') != -1
         vo.isRepeat = addition.find('*') != -1
-        cls.vars.append(vo)
+        cls.originVars.append(vo)
         return vo
 
     def setIndexs(self, cls):
-        cls.indexs = []
         if not cls.isMap:
             return
         print 'names', cls.indexNames
         print 'vars', cls.vars
+
+        
+        # 设置未被删除的变量列表
+        for var in cls.originVars:
+            if not var.isDel:
+                cls.vars.append(var)
+
+        # 设置indexs
         for name in cls.indexNames:
-            print '---------', name
-            idx = indexOfKey(cls.vars, name, 'name')
+            # print '---------', name
+            idx = indexOfKey(cls.originVars, name, 'name')
             if idx < 0:
                 raise NameError('can not found index name: %s in %s' % (name, cls.name))
-            cls.indexs.append(idx)
+            cls.originIndexs.append(idx)
 
-        print cls.indexs, cls.vars
+            idx = indexOfKey(cls.vars, name, 'name')
+            if idx < 0:
+                raise NameError('index name [%s] was deleted in %s' % (name, cls.name))
+            cls.indexs.append(idx)
 
 
 
@@ -187,7 +198,7 @@ class DefParser:
 
     def parseClasses(self, s):
         s = s.strip()
-        blocks = re.split('\r\n|\n\n', s)
+        blocks = re.split('\r\n\r\n+|\n\n+', s)
         for block in blocks:
             ClassParser().parse(block, self.manage)
 

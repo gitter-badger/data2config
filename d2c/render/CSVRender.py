@@ -5,9 +5,41 @@ import csv
 import os.path
 from d2c.varVo import *
 
+import csv, codecs, cStringIO
+
+class UTF8Recoder:
+    """
+    Iterator that reads an encoded stream and reencodes the input to UTF-8
+    """
+    def __init__(self, f, encoding):
+        self.reader = codecs.getreader(encoding)(f)
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        return self.reader.next().encode("utf-8")
+
+class UnicodeReader:
+    """
+    A CSV reader which will iterate over lines in the CSV file "f",
+    which is encoded in the given encoding.
+    """
+
+    def __init__(self, f, dialect="excel", encoding="utf-8", **kwds):
+        f = UTF8Recoder(f, encoding)
+        self.reader = csv.reader(f, dialect=dialect, **kwds)
+
+    def next(self):
+        row = self.reader.next()
+        return [unicode(s, "utf-8") for s in row]
+
+    def __iter__(self):
+        return self
+
 def getReader(filename):
     f = open(filename, 'rb')
-    return csv.reader(f)
+    return UnicodeReader(f, 'gb2312')
     # with open(filename, 'rb') as f:
     #     reader = csv.reader(f)
     #     return reader
@@ -45,12 +77,14 @@ class CSVRender:
                 continue
             row = RowData(self.cls)
             rows.append(row)
-            varCount = len(self.cls.vars)
-            for i in range(varCount):
-                var = self.cls.vars[i].clone()
+            originCount = len(self.cls.originVars)
+            for i in xrange(originCount):
+                var = self.cls.originVars[i].clone()
                 var.value = rawRow[i]
-                row.vars.append(var)
-            row.indexValues = [row.vars[i].value for i in self.cls.indexs]
+                row.originVars.append(var)
+                if not var.isDel:
+                    row.vars.append(var)
+            row.indexVars = [row.vars[i] for i in self.cls.indexs]
             # print self.cls.indexs,  row.indexValues
 
 

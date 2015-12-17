@@ -96,21 +96,25 @@ class VarVo:
 # 模板变量 rows<RowData> 数组
 # 模板变量 rowmap<rowKey, RowData> 
 class RowData:
-    def __init__(self, cls = None):
+    def __init__(self, cls):
         self._class = cls                       # ClassVo 对应的类
-        self.key    = None                      # string 实力的key变量 (仅当是map形式的时候)
-        self.value  = None                      # string 实例的key值   (仅当是map形式的时候)
-        self.indexNames = None                  # <string> 索引属性名列表   (仅当是map形式的时候)
-        self.indexValues = None                 # <string> 索引属性值列表   (仅当是map形式的时候)
-        self.vars   = []                        # <VarVo> 属性列表 等同于 class.vars var.type 有效
-        if cls is not None:
-            self.indexNames = cls.indexNames
+        self.indexNames = cls.indexNames        # <string> 索引属性名列表   (仅当是map形式的时候)
+        self.indexVars = []                     # <Var> 索引属性变量列表   (仅当是map形式的时候)
+        self.originVars   = []                  # <VarVo> 原始的属性列表 等同于 class.vars var.type 有效
+        self.vars  = []                         # <VarVo> 过滤掉删除的属性列表，类似于originVars
 
 
-    def __getitem__(self, key):
-        if key == 'class':
-            return self._class
-        raise KeyError("RowData instance has no attribute '%s'" % (key))
+    def getClass(self):
+        # 返回该数据对应的类
+        return self._class
+
+    # def __getitem__(self, key):
+    #     if key == 'class':
+    #         return self._class
+    #     raise KeyError("RowData instance has no attribute '%s'" % (key))
+
+
+
 
 
 
@@ -127,30 +131,16 @@ class ClassVo:
         self.csvName = None                     # string csv名字
         self.templates = None                   # <TemplateInfo> 模板
         self.name = None                        # string 类名
-        self.isMap = True                       # bool   该类是否为key/value形式
+        self.isMap = False                      # bool   该类是否为key/value形式
         self.indexNames = []                    # <string> 索引属性名列表
-        self.indexs = []                        # <int> 索引属性值列表
-        self.vars = []                          # <VarVo> 变量列表
+        self.indexs = []                        # <int> 引属性值列表(不包含被删除的)
+        self.vars = []                          # <VarVo> 变量列表(不包含被删除的)
+        self.originIndexs = []                  # <int> 原始的引属性值列表(包含被删除的)
+        self.originVars = []                    # <VarVo> 原始变量列表
 
-    def setIndexNames(self, names):
-        # <string> names 索引的参数列表
+    # def getIndexs(self):
+    #     return self._indexs
 
-        if names is None or len(names) == 0:
-            isMap = False
-            return
+    # def getVars(self):
+    #     return self._vars
 
-        for name in names:
-            v = self._getVarIdx(name)
-            if v is not None:
-                self.indexNames.append(name)
-                self.indexValues.append(v.value)
-                self.indexVars.append(v)
-            else:
-                raise NameError('can not parse getItem for key: %s' % (name))
-
-
-    def _getVar(self, varName):
-        for v in self.vars:
-            if v.name == varName:
-                return v
-        return None
