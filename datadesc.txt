@@ -57,8 +57,9 @@ CSV {
 # 模板变量 rowmap<rowKey, RowData> 
 RowData {
     Class       class           // 对应的类
-    string      key             // 实力的key变量 (仅当是map形式的时候)
-    string      value           // 实例的key值   (仅当是map形式的时候)
+#    string      key             // 实力的key变量 (仅当是map形式的时候)
+#    string      value           // 实例的key值   (仅当是map形式的时候)
     <string>    indexNames      // 索引属性名列表
-    <string>    indexValues     // 索引属性值列表
+    <string>    indexVars       // 索引变量列表
+    <Var>       vars            // 变量列表
 }
