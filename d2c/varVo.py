@@ -10,11 +10,11 @@ def getValueWrap(value, type):
     elif 'lstring' == type:
         return '[[%s]]' % value
     elif 'int' == type:
-        return int(value)
+        return int(value) if len(value) > 0 else 0
     elif 'float' == type:
-        return number(value)
+        return float(value) if len(value) > 0 else 0
     elif 'json' == type:
-        return value
+        return value if len(value) > 0 else 'nil'
     elif 'bool' == type:
         return 'true' if value == 'true' or value == '1' else 'false'
     print value
