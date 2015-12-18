@@ -50,7 +50,11 @@ class D2C:
             rows = render.render()
             for info in render.templates:
                 template = self._env.get_template(info.name)
-                outputData = template.render(rows=rows)
+                args = {
+                    'rows': rows,
+                    'class': cls
+                }
+                outputData = template.render(**args)
                 outputData, outputName = output_filter(outputData)
                 outputName = info.outputName or outputName
                 if (outputName is None):
