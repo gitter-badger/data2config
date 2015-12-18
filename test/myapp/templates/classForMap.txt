@@ -1,3 +1,5 @@
+filename:{{ class.name }}_Data.lua
+-----
 return {
 {% for row in rows -%}
 ["{% for var in row.indexVars %}{{ var.value }}{% if not loop.last %}_{% endif %}{% endfor %}"]={{ '{' }}

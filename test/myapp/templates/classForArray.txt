@@ -1,3 +1,5 @@
+filename:{{ class.name }}_Data.lua
+-------
 return {
 {% for row in rows -%}
     {{ '{' }}
