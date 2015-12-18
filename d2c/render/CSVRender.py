@@ -39,7 +39,7 @@ class UnicodeReader:
 
 def getReader(filename):
     f = open(filename, 'rb')
-    return UnicodeReader(f, 'gb2312')
+    return UnicodeReader(f, encoding='gbk')
     # with open(filename, 'rb') as f:
     #     reader = csv.reader(f)
     #     return reader
@@ -71,9 +71,11 @@ class CSVRender:
     def render(self):
         rows = []
         reader = getReader(self.csvName)
+        line_num = 1
         for rawRow in reader:
             # rawRow 原始的行数据
-            if reader.line_num < 10:
+            if line_num < 10:
+                line_num += 1
                 continue
             row = RowData(self.cls)
             rows.append(row)
