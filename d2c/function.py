@@ -13,6 +13,9 @@ def readfile(filename):
         return data
 
 def writefile(filename, data):
+    dirname = os.path.dirname(filename)
+    if len(dirname) > 0 and not os.path.exists(dirname):
+        os.makedirs(dirname)
     with open(filename, 'w') as f:
         f.write(data)
         f.close()
