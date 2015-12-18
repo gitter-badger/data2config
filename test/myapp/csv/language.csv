@@ -1,0 +1,13 @@
+id,說明文字,,,
+,{name}替換參數,,name,用戶名
+,,,legionName,軍團名
+language.csv,,,legionPost,軍團職位名
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+1,[{name}]加入了軍團,,,
+2,[{name}]離開了軍團,,,
+3,[{name}]職位變更為[{post}],,,
+4,[{name}]將團長職位禪讓給[{name1}],,,
