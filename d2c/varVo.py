@@ -17,7 +17,7 @@ def getValueWrap(value, type):
         return value if len(value) > 0 else 'nil'
     elif 'bool' == type:
         return 'true' if value == 'true' or value == '1' else 'false'
-    print value
+    print(value)
 
 
 
@@ -137,10 +137,3 @@ class ClassVo:
         self.vars = []                          # <VarVo> 变量列表(不包含被删除的)
         self.originIndexs = []                  # <int> 原始的引属性值列表(包含被删除的)
         self.originVars = []                    # <VarVo> 原始变量列表
-
-    # def getIndexs(self):
-    #     return self._indexs
-
-    # def getVars(self):
-    #     return self._vars
-

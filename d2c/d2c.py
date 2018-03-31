@@ -3,9 +3,9 @@
 
 from jinja2 import Template
 from jinja2 import Environment, FileSystemLoader
-from parsers.defParser import DefParser
-from render.CSVRender import CSVRender
-from function import *
+from .parsers.defParser import DefParser
+from .render.ExcelRender import ExcelRender
+from .function import *
 import csv
 import os, os.path
 import sys
@@ -44,7 +44,7 @@ class D2C:
             writefile(outputName, outputData)
         
         for cls in manage.classes:
-            render = CSVRender(cls, manage.clsTemplates, self)
+            render = ExcelRender(cls, manage.clsTemplates, self)
             if not render.exists():
                 continue
             rows = render.render()
@@ -54,6 +54,7 @@ class D2C:
                     'rows': rows,
                     'class': cls
                 }
+                print(cls.csvName)
                 outputData = template.render(**args)
                 outputData, outputName = output_filter(outputData)
                 outputName = info.outputName or outputName

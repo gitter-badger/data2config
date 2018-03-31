@@ -4,21 +4,13 @@
 import os.path
 import re
 
+from litefeel.pycommon.io import read_file, write_file
+
 def readfile(filename):
-    if not os.path.exists(filename):
-        return None
-    with open(filename) as f:
-        data = f.read()
-        f.close()
-        return data
+    return read_file(filename)
 
 def writefile(filename, data):
-    dirname = os.path.dirname(filename)
-    if len(dirname) > 0 and not os.path.exists(dirname):
-        os.makedirs(dirname)
-    with open(filename, 'w') as f:
-        f.write(data)
-        f.close()
+    write_file(filename, data)
 
 
 # filename:xxxxx.xxx
