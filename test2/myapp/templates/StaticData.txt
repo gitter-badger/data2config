@@ -1,0 +1,28 @@
+filename:StaticData.lua
+-------------------------------------------
+local CURRENT_PACKAGE = ...
+CURRENT_PACKAGE = string.sub(CURRENT_PACKAGE, 1, -12)
+local manager = {}
+
+{% for class in classes -%}
+manager.{{ class.name }}_Data = require(CURRENT_PACKAGE..".{{ class.name }}_Data")
+function manager.get{{ class.name }}(
+		{#- index names -#}
+        {%- for arr in class.indexNames -%}{{ arr }}{% if not loop.last %},{% endif %}{% endfor -%}
+	)
+    return manager.{{ class.name }}_Data[
+        {#- string index -#}{% if class.isMap -%}
+        {%- for arr in class.indexNames -%}tostring({{ arr }}){% if not loop.last %}..'_'..{% endif %}{% endfor -%}
+        {#- number index -#}{% else -%}{{ class.indexNames[0] }}
+        {%- endif -%}
+    ]
+end
+{% endfor %}
+
+function manager.clear()
+{% for class in classes -%}
+_G.package[CURRENT_PACKAGE..".{{ class.name }}_Data"]=nil
+{% endfor -%}
+end
+
+return manager

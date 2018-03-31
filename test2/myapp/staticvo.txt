@@ -1,0 +1,31 @@
+
+template(staticData.txt|aaa.txt, staticData.txt)
+clsTemplate(classForMap.txt)
+
+
+------------------------------------------
+HeroStaticVo 道具表.xlsx
+index(id)
+int id
+string name
+int leixing
+int bianliang1
+int bianliang2
+int chushou
+string miaoshu
+string icon
+
+
+
+EquipStaticVo 副本表.xlsx
+index(id)
+int id
+int zhujue
+int zhangjie
+string zjname
+int guanka
+string gkname
+int star1
+int star2
+int star3
+
