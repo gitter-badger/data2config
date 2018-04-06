@@ -20,7 +20,7 @@ import os, os.path
 import sys
 
 testpath = os.path.dirname(os.path.abspath(__file__))
-templatespath = os.path.join(testpath, 'myapp/templates')
+templatespath = os.path.join(testpath, 'myapp/templates/json')
 myapppath = os.path.join(testpath, 'myapp')
 
 def doxxx():
@@ -76,7 +76,7 @@ def testTemplate():
 
     config = Config()
     config.idlPath = os.path.join(myapppath, 'staticvo.txt')
-    config.templateDir = os.path.join(myapppath, 'templates')
+    config.templateDir = os.path.join(myapppath, 'templates/json')
     config.outputDir = os.path.join(myapppath, '../dest')
     config.dataDir = os.path.join(myapppath, 'excel')
     d2c = D2C(config)

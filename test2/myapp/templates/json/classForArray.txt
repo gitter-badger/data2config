@@ -1,0 +1,19 @@
+filename:{{ class.name }}_Data.json
+-------
+[
+[
+    {%- for var in rows[0].vars -%}
+    "{{ var.name }}"{%- if not loop.last %},{% endif %}
+    {%- endfor -%}
+],
+[
+    {%- for var in rows[0].vars -%}
+    "{{ var.type.upper() }}"{%- if not loop.last %},{% endif %}
+    {%- endfor -%}
+],
+{% for row in rows -%}
+    {{ '[' }}
+    {%- for var in row.vars -%}{{ var.valuew }}{% if not loop.last %},{% endif %}{% endfor -%}{{ ']' }}
+    {%- if not loop.last %},{% endif %}
+{% endfor -%}
+]
