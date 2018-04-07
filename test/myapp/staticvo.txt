@@ -41,22 +41,22 @@ string name
 lstring desc
 int cost        // 出售价格
 int quality      // 基础品质
-int strength    // 力
-int dexterity   // 敏
-int intellect   // 智
-int maxHp       // 最大血量
-int atk         // 物攻
-int mAtk        // 魔攻
-int def         // 物防
-int mDef        // 魔防
-int dDef        // 物理穿透
-int mDDef       // 魔法穿透
-int vampireLv   // 吸血等级
-int critLv      // 物理暴击等级
-int mCritLv     // 魔法暴击等级
-int dodge       // 闪避百分比 10为10%
-int hpRegen     // hp回复
-int epRegen     // 能量回复
+float strength    // 力
+float dexterity   // 敏
+float intellect   // 智
+float maxHp       // 最大血量
+float atk         // 物攻
+float mAtk        // 魔攻
+float def         // 物防
+float mDef        // 魔防
+float dDef        // 物理穿透
+float mDDef       // 魔法穿透
+float vampireLv   // 吸血等级
+float critLv      // 物理暴击等级
+float mCritLv     // 魔法暴击等级
+float dodge       // 闪避百分比 10为10%
+float hpRegen     // hp回复
+float epRegen     // 能量回复
 float epReduce      // 能量消耗减少百分比
 float treatRatio    // 治疗效果提升百分比
 int needLevel       //需求英雄等级

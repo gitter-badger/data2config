@@ -4,13 +4,6 @@
 import os.path
 import re
 
-from litefeel.pycommon.io import read_file, write_file
-
-def readfile(filename):
-    return read_file(filename)
-
-def writefile(filename, data):
-    write_file(filename, data)
 
 
 # filename:xxxxx.xxx

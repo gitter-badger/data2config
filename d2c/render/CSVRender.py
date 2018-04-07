@@ -86,6 +86,7 @@ class CSVRender:
                 row.originVars.append(var)
                 if not var.isDel:
                     row.vars.append(var)
+                    # checklink
             row.indexVars = [row.vars[i] for i in self.cls.indexs]
             # print self.cls.indexs,  row.indexValues
 

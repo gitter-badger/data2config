@@ -124,6 +124,8 @@ class ClassParser:
         if len(arr) > 0:
             cls.isMap = True
             cls.indexNames = arr
+        else:
+            P_CLS_TEMPLATES
 
     def readVar(self, s, cls):
         s = removeComment(s).strip()
@@ -151,8 +153,8 @@ class ClassParser:
     def setIndexs(self, cls):
         if not cls.isMap:
             return
-        print 'names', cls.indexNames
-        print 'vars', cls.vars
+        # print 'names', cls.indexNames
+        # print 'vars', cls.vars
 
         
         # 设置未被删除的变量列表

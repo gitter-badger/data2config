@@ -36,7 +36,7 @@ def doxxx():
     ]
 
     template = env.get_template('template.txt')
-    print template.render(**data)
+    print(template.render(**data))
 
     # class data
     allClasses = []
@@ -102,14 +102,14 @@ def testCsv():
     filename = os.path.join(testpath, 'myapp/csv/effect.csv')
     with open(filename, 'rb') as f:
         reader = csv.reader(f)
-        print type(reader)
+        print(type(reader))
         try:
             n = 0
             for row in reader:
-                print reader.line_num
+                print(reader.line_num)
                 n = n +1
                 if n < 3:
-                    print row
+                    print(row)
         except csv.Error as e:
             sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
 
