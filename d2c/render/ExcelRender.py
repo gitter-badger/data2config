@@ -7,10 +7,10 @@ import os.path
 
 from openpyxl import Workbook, load_workbook
 
-from d2c.varVo import *
+from ..varVo import *
 
 
-def gettitles(ws, rowIdx = 1, genDict = False):
+def gettitles(ws, rowIdx=1, genDict=False):
     max_col = ws.max_column
     max_row = ws.max_row
     titles = {} if genDict else []
@@ -34,13 +34,14 @@ def readfile(filename, colNames, kmap):
     # titlemap = gettitles(ws, 2, True)
     # for colName in colNames:
     #     colidx = titlemap[colName]
-        
+
     for row in ws.iter_rows(min_row=1, max_row=max_row):
         yield row
-            # for cell in col:
-            #     v = cell.value
-            #     if v:
-            #         kmap[v] = True
+        # for cell in col:
+        #     v = cell.value
+        #     if v:
+        #         kmap[v] = True
+
 
 class ExcelRender:
     def __init__(self, cls, defaultTemplates, d2c):
@@ -77,6 +78,5 @@ class ExcelRender:
                     # checklink
             row.indexVars = [row.vars[i] for i in self.cls.indexs]
             # print self.cls.indexs,  row.indexValues
-
 
         return rows

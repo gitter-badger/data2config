@@ -4,12 +4,11 @@
 import os.path
 import re
 
-
-
 # filename:xxxxx.xxx
 # ---------
 # 这种格式表示文件信息，不会输出到文件
-P_OUTPUT_FILTER    = 'filename:(.+)\r?\n\-\-\-+\r?\n(.+)'    # filename:xxxxx\n---\n.*
+P_OUTPUT_FILTER = 'filename:(.+)\r?\n---+\r?\n(.+)'  # filename:xxxxx\n---\n.*
+
 
 def output_filter(output):
     """return [output, filename], filename can None

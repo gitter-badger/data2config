@@ -2,15 +2,16 @@
 # coding=utf-8
 
 import re
-from d2c.varVo import *
-from d2c.function import indexOfKey
 
+from ..function import indexOfKey
+from ..varVo import *
 
-P_INDEXS    = 'index\((.*)\)'           # index()
-P_TEMPLATES = 'template\((.*)\)'        # template()
-P_CLS_TEMPLATES = 'clsTemplate\((.*)\)' # clsTemplate()
-P_WHITESPACE= '\s+'                     # 空白
-P_COMMA_SPACE= '\s*,\s*'                # 逗号
+P_INDEXS = 'index\((.*)\)'  # index()
+P_TEMPLATES = 'template\((.*)\)'  # template()
+P_CLS_TEMPLATES = 'clsTemplate\((.*)\)'  # clsTemplate()
+P_WHITESPACE = '\s+'  # 空白
+P_COMMA_SPACE = '\s*,\s*'  # 逗号
+
 
 # remove comment
 def removeComment(s):
@@ -25,6 +26,7 @@ def removeComment(s):
     if idx != l:
         return s[:idx]
     return s
+
 
 # return <string> or None(没有匹配)
 # 读取模式列表
@@ -92,7 +94,7 @@ class ClassParser:
         idx = idx + 1
         self.readIndexs(lines[idx], cls)
         hasRepeat = False
-        for line in lines[idx+1:]:
+        for line in lines[idx + 1:]:
             vo = self.readVar(line, cls)
             if hasRepeat and vo.isRepeat:
                 raise NameError('repeat must at last var')
@@ -102,7 +104,6 @@ class ClassParser:
         self.setIndexs(cls)
 
         manage.classes.append(cls)
-
 
     def readClsCsvName(self, s, cls):
         # read class name and csv name
@@ -127,7 +128,7 @@ class ClassParser:
         else:
             P_CLS_TEMPLATES
 
-    def readVar(self, s, cls):
+    def readVar(self, s, cls) -> VarVo:
         s = removeComment(s).strip()
         if len(s) == 0:
             return None
@@ -156,7 +157,6 @@ class ClassParser:
         # print 'names', cls.indexNames
         # print 'vars', cls.vars
 
-        
         # 设置未被删除的变量列表
         for var in cls.originVars:
             if not var.isDel:
@@ -167,22 +167,22 @@ class ClassParser:
             # print '---------', name
             idx = indexOfKey(cls.originVars, name, 'name')
             if idx < 0:
-                raise NameError('can not found index name: %s in %s' % (name, cls.name))
+                raise NameError('can not found index name: %s in %s' %
+                                (name, cls.name))
             cls.originIndexs.append(idx)
 
             idx = indexOfKey(cls.vars, name, 'name')
             if idx < 0:
-                raise NameError('index name [%s] was deleted in %s' % (name, cls.name))
+                raise NameError('index name [%s] was deleted in %s' %
+                                (name, cls.name))
             cls.indexs.append(idx)
-
-
 
 
 # 类定义解析器
 class DefParser:
     def __init__(self):
-        self.data = None        # string 元素数据
-        self.manage = None      # ManageVo
+        self.data = None  # string 元素数据
+        self.manage = None  # ManageVo
 
     def parse(self, s):
         parts = re.split('^-{5,}$', s, flags=re.MULTILINE)
@@ -202,12 +202,8 @@ class DefParser:
         s = s.strip()
         blocks = re.split('\r\n\r\n+|\n\n+', s)
         for block in blocks:
-            ClassParser().parse(block, self.manage)
-
-
-        
-
-
+            if block:
+                ClassParser().parse(block, self.manage)
 
 
 d = '''template:template.txt template.txt2

@@ -1,16 +1,19 @@
 #!/bin/python
 # coding=utf-8
 
-from jinja2 import Template
-from jinja2 import Environment, FileSystemLoader
-from .parsers.defParser import DefParser
-from .render.ExcelRender import ExcelRender
-from .config import Config
-from litefeel.pycommon.io import read_file, write_file
-from .function import indexOfKey, output_filter
 import csv
-import os, os.path
+import os
+import os.path
 import sys
+
+from jinja2 import Environment, FileSystemLoader, Template
+from litefeel.pycommon.io import read_file, write_file
+
+from .config import Config
+from .function import indexOfKey, output_filter
+from .parsers.defParser import DefParser
+from .parsers.excelHead import ExcelParser
+from .render.ExcelRender import ExcelRender
 
 
 class D2C:
@@ -30,6 +33,12 @@ class D2C:
         parser.parse(data)
 
         manage = parser.manage
+
+        for root, _, files in os.walk(self._config.dataDir):
+            for f in files:
+                if f.endswith('xlsx'):
+                    clsVo = ExcelParser.parse(os.path.join(root, f))
+                    manage.classes.append(clsVo)
 
         for info in manage.templates:
             template = self._env.get_template(info.name)
