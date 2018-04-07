@@ -1,31 +1,35 @@
 #!/bin/python
 # coding=utf-8
 
+import csv
+import os
+import os.path
 import sys
-import os, os.path
-abspath = os.path.abspath(os.path.join(__file__, '../..'))
 
+abspath = os.path.abspath(os.path.join(__file__, '../..'))
 sys.path.append(abspath)
+
+from jinja2 import Environment, FileSystemLoader, Template
+
+from d2c.config import Config
+from d2c.d2c import D2C
+from d2c.parsers.defParser import DefParser
+
+
+
+
 
 # reload(sys)
 # sys.setdefaultencoding('utf-8')
 
-from jinja2 import Template
-from jinja2 import Environment, FileSystemLoader
-from d2c.parsers.defParser import DefParser
-from d2c.d2c import D2C
-from d2c.config import Config
-import csv
-import os, os.path
-import sys
 
 testpath = os.path.dirname(os.path.abspath(__file__))
 templatespath = os.path.join(testpath, 'myapp/templates/json')
 myapppath = os.path.join(testpath, 'myapp')
 
 
-def testTemplate():
-    config = Config().load(os.path.join(myapppath, 'config.yml'))
+def testTemplate(configpath: str):
+    config = Config().load(configpath)
     d2c: D2C = D2C(config)
     d2c.doD2c()
 
@@ -45,4 +49,9 @@ def testTemplate():
 
 if __name__ == "__main__":
     # testCsv()
-    testTemplate()
+    configpath = os.path.join(myapppath, 'config.yml')
+    # print(sys.argv)
+    if len(sys.argv) == 2:
+        configpath = sys.argv[1]
+    testTemplate(configpath)
+
