@@ -5,11 +5,13 @@ CURRENT_PACKAGE = string.sub(CURRENT_PACKAGE, 1, -12)
 local manager = {}
 
 {% for class in classes -%}
-manager.{{ class.name }}_Data = require(CURRENT_PACKAGE..".{{ class.name }}_Data")
 function manager.get{{ class.name }}(
 		{#- index names -#}
         {%- for arr in class.indexNames -%}{{ arr }}{% if not loop.last %},{% endif %}{% endfor -%}
 	)
+    if not manager.{{ class.name }}_Data then
+        manager.{{ class.name }}_Data = require(CURRENT_PACKAGE..".{{ class.name }}_Data")
+    end
     return manager.{{ class.name }}_Data[
         {#- string index -#}{% if class.isMap -%}
         {%- for arr in class.indexNames -%}tostring({{ arr }}){% if not loop.last %}..'_'..{% endif %}{% endfor -%}
