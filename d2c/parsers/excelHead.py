@@ -8,8 +8,7 @@ from ..varVo import ClassVo, RowData, VarVo
 class ExcelParser:
     @classmethod
     def parse(cls, excelPath) -> ClassVo:
-        wb = load_workbook(
-            os.path.abspath(excelPath), data_only=True)
+        wb = load_workbook(os.path.abspath(excelPath), data_only=True)
         ws = wb.active
         max_col = ws.max_column
 
@@ -23,9 +22,12 @@ class ExcelParser:
             name_cell = ws.cell(row=2, column=i)
             var_name = name_cell.value
             var_type = ws.cell(row=3, column=i).value
+            exprot = ws.cell(row=4, column=i).value
             varvo = VarVo()
             clsVo.originVars.append(varvo)
             varvo.isDel = not var_name or not var_type
+            if not varvo.isDel:
+                varvo.isDel = 'S' == exprot
             if varvo.isDel:
                 continue
 

@@ -62,8 +62,8 @@ class ExcelRender:
         reader = readfile(self.csvName, None, None)
         line_num = 1
         for rawRow in reader:
-            # rawRow 原始的行数据
-            if line_num < 4:
+            # rawRow 从第5行开始读取
+            if line_num < 5:
                 line_num += 1
                 continue
             row = RowData(self.cls)
