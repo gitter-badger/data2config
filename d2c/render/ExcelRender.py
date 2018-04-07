@@ -26,7 +26,7 @@ def gettitles(ws, rowIdx=1, genDict=False):
 
 
 def readfile(filename, colNames, kmap):
-    wb = load_workbook(os.path.abspath(filename))
+    wb = load_workbook(os.path.abspath(filename), read_only=True, data_only=True)
     ws = wb.active
     max_col = ws.max_column
     max_row = ws.max_row

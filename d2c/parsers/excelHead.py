@@ -8,7 +8,8 @@ from ..varVo import ClassVo, RowData, VarVo
 class ExcelParser:
     @classmethod
     def parse(cls, excelPath) -> ClassVo:
-        wb = load_workbook(os.path.abspath(excelPath))
+        wb = load_workbook(
+            os.path.abspath(excelPath), data_only=True)
         ws = wb.active
         max_col = ws.max_column
 
