@@ -12,13 +12,13 @@ def getValueWrap(value, type: str):
         return '[[%s]]' % value
     elif 'int' == type:
         return int(value) if len(value) > 0 else 0
-    elif 'float' == type:
+    elif 'float' == type or 'number' == type:
         return float(value) if len(value) > 0 else 0
     elif 'json' == type:
         return value if len(value) > 0 else 'nil'
     elif 'bool' == type:
         return 'true' if value == 'true' or value == '1' else 'false'
-    print(value)
+    # print(value)
 
 
 # string      name             // 文件名 xxx.csv
