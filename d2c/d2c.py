@@ -32,7 +32,8 @@ class D2C:
 
         for root, _, files in os.walk(self._config.dataDir):
             for f in files:
-                if f.endswith('xlsx'):
+                # ~$ 开头为excel打开后的临时文件
+                if f.endswith('xlsx') and not f.startswith('~$'):
                     clsVo = ExcelParser.parse(os.path.join(root, f))
                     manage.classes.append(clsVo)
 
@@ -51,11 +52,12 @@ class D2C:
             render = ExcelRender(cls, manage.clsTemplates, self)
             if not render.exists():
                 continue
+            print("正在处理数值表: %s" % cls.csvName)
             rows = render.render()
             for template_name in render.templates:
                 template = self._env.get_template(template_name)
                 args = {'rows': rows, 'class': cls}
-                print(cls.csvName)
+                # print(cls.csvName)
                 outputData = template.render(**args)
                 outputData, outputName = output_filter(outputData)
                 if (outputName is None):
