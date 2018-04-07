@@ -44,11 +44,11 @@ def readfile(filename, colNames, kmap):
 
 
 class ExcelRender:
-    def __init__(self, cls, defaultTemplates, d2c):
+    def __init__(self, cls:ClassVo, defaultTemplates:[str], d2c):
         """
         """
         self.cls = cls
-        self.defaultTemplates = defaultTemplates
+        self.defaultTemplates:[str] = defaultTemplates
         self.d2c = d2c
         self.templates = cls.templates or defaultTemplates
 

@@ -1,0 +1,16 @@
+
+# 输出文件夹
+output_dir: ../dest/
+# excel目录
+data_dir: excel/
+# 模板目录
+template_dir: templates/lua
+
+# 管理器的模板
+main_templates:
+  - staticData.txt
+
+# 每个excel的默认模板
+cls_templates:
+  - classForMap.txt
+

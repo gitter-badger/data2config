@@ -38,21 +38,10 @@ class CSVVo:
         idx = self.name.rfind('.')
         self.trimmedName = self.name if -1 == idx else self.name[:idx]
 
-
-# 模板信息
-class TemplateInfo:
-    __slots__ = ('name', 'outputName')
-
-    def __init__(self, name: str = None, outputName: str = None):
-        self.name: str = name  # string 模板名
-        self.outputName: str = outputName  # string 导出文件名
-        # self._template: Template = None  # Template 模板
-
-
 class ManageVo:
     def __init__(self):
-        self.templates: [TemplateInfo] = None  # <TemplateInfo> 模板信息
-        self.clsTemplates: TemplateInfo = None  # <TemplateInfo> 类的默认模板
+        self.templates: [str] = None  # <str> 模板信息
+        self.clsTemplates: [str] = None  # <str> 类的默认模板
         self.classes: [ClassVo] = []  # <Class>
 
 
@@ -118,7 +107,7 @@ class ClassVo:
     def __init__(self):
         self.csv = None  # CSVVo  csv
         self.csvName: str = None  # string csv名字
-        self.templates: [TemplateInfo] = None  # <TemplateInfo> 模板
+        self.templates: [str] = None  # <str> 模板名
         self.name: str = None  # string 类名
         self.isMap: bool = False  # bool   该类是否为key/value形式
         self.indexNames: [str] = []  # <string> 索引属性名列表
