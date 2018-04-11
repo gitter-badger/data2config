@@ -18,7 +18,7 @@ class ExcelParser:
             sep='.', maxsplit=2)[0].split(sep='_')[1]
 
         # read all vars
-        for i in range(1, max_col):
+        for i in range(1, max_col+1):
             name_cell = ws.cell(row=2, column=i)
             var_name = name_cell.value
             var_type = ws.cell(row=3, column=i).value
