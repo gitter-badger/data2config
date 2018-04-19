@@ -7,6 +7,8 @@ import os
 
 
 def make_arr(s) -> [str]:
+    if s is None:
+        return []
     if isinstance(s, str):
         return [str]
     return s
