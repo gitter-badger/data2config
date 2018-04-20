@@ -11,7 +11,7 @@ from .config import Config
 from .function import indexOfKey, output_filter
 from .parsers.excelHead import ExcelParser
 from .render.ExcelRender import ExcelRender
-from .varVo import ManageVo
+from .varVo import ManageVo, TemplateInfo
 
 
 class D2C:
@@ -37,16 +37,17 @@ class D2C:
                     clsVo = ExcelParser.parse(os.path.join(root, f))
                     manage.classes.append(clsVo)
 
-        for template_name in manage.templates:
-            template = self._env.get_template(template_name)
+        for template_info in manage.templates:  #type: Template_Info
+            template = self._env.get_template(template_info.name)
             outputData = template.render(classes=manage.classes)
             outputData, outputName = output_filter(outputData)
             if (outputName is None):
-                outputName = template_name
+                outputName = template_info.name
 
             outputName = os.path.join(self._config.outputDir, outputName)
 
-            write_file(outputName, outputData)
+            if not template_info.dont_rewrite or not os.path.exists(outputName):
+                write_file(outputName, outputData)
 
         for cls in manage.classes:
             render = ExcelRender(cls, manage.clsTemplates, self)
@@ -54,15 +55,16 @@ class D2C:
                 continue
             print("正在处理数值表: %s" % cls.csvName)
             rows = render.render()
-            for template_name in render.templates:
-                template = self._env.get_template(template_name)
+            for template_info in render.templates:
+                template = self._env.get_template(template_info.name)
                 args = {'rows': rows, 'class': cls}
                 # print(cls.csvName)
                 outputData = template.render(**args)
                 outputData, outputName = output_filter(outputData)
                 if (outputName is None):
-                    outputName = template_name
+                    outputName = template_info.name
 
                 outputName = os.path.join(self._config.outputDir, outputName)
 
-                write_file(outputName, outputData)
+                if not template_info.dont_rewrite or not os.path.exists(outputName):
+                    write_file(outputName, outputData)

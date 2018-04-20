@@ -21,6 +21,12 @@ def getValueWrap(value, type: str):
     # print(value)
 
 
+class TemplateInfo:
+    def __init__(self, name: str, dont_rewrite: bool = False):
+        self.name = name
+        self.dont_rewrite = dont_rewrite
+
+
 # string      name             // 文件名 xxx.csv
 # string      trimmedName      // 文件名 xxx
 # string      fileName         // 文件名 d:/xxx.csv
@@ -38,10 +44,11 @@ class CSVVo:
         idx = self.name.rfind('.')
         self.trimmedName = self.name if -1 == idx else self.name[:idx]
 
+
 class ManageVo:
     def __init__(self):
         self.templates: [str] = None  # <str> 模板信息
-        self.clsTemplates: [str] = None  # <str> 类的默认模板
+        self.clsTemplates: [TemplateInfo] = []  # <str> 类的默认模板
         self.classes: [ClassVo] = []  # <Class>
 
 
@@ -73,6 +80,11 @@ class VarVo:
 
     def valuew(self) -> str:
         return getValueWrap(self.value, self.type)
+
+    def typew(self) -> str:
+        if self.type == 'NUMBER':
+            return 'float'
+        return self.type
 
 
 # 表示csv里的一行数据
@@ -107,7 +119,7 @@ class ClassVo:
     def __init__(self):
         self.csv = None  # CSVVo  csv
         self.csvName: str = None  # string csv名字
-        self.templates: [str] = None  # <str> 模板名
+        self.templates: [str] = []  # <str> 模板名
         self.name: str = None  # string 类名
         self.isMap: bool = False  # bool   该类是否为key/value形式
         self.indexNames: [str] = []  # <string> 索引属性名列表
