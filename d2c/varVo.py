@@ -13,7 +13,7 @@ def getValueWrap(value, type: str):
     elif 'int' == type:
         return int(value) if len(value) > 0 else 0
     elif 'float' == type or 'number' == type:
-        return float(value) if len(value) > 0 else 0
+        return str(float(value)) + 'f' if len(value) > 0 else '0f'
     elif 'json' == type:
         return value if len(value) > 0 else 'nil'
     elif 'bool' == type:
@@ -127,3 +127,7 @@ class ClassVo:
         self.vars: [VarVo] = []  # <VarVo> 变量列表(不包含被删除的)
         self.originIndexs: [int] = []  # <int> 原始的引属性值列表(包含被删除的)
         self.originVars: [VarVo] = []  # <VarVo> 原始变量列表
+
+    def clsName(self):
+        _name:str = self.name or ''
+        return _name[0].upper() + _name[1:]
