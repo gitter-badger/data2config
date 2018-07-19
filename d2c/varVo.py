@@ -78,9 +78,11 @@ class VarVo:
         var.isPercent = self.isPercent
         return var
 
+    @property
     def valuew(self) -> str:
         return getValueWrap(self.value, self.type)
 
+    @property
     def typew(self) -> str:
         if self.type == 'NUMBER':
             return 'float'
