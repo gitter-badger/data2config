@@ -6,11 +6,11 @@ import re
 from ..function import indexOfKey
 from ..varVo import *
 
-P_INDEXS = 'index\((.*)\)'  # index()
-P_TEMPLATES = 'template\((.*)\)'  # template()
-P_CLS_TEMPLATES = 'clsTemplate\((.*)\)'  # clsTemplate()
-P_WHITESPACE = '\s+'  # 空白
-P_COMMA_SPACE = '\s*,\s*'  # 逗号
+P_INDEXS = r'index\((.*)\)'  # index()
+P_TEMPLATES = r'template\((.*)\)'  # template()
+P_CLS_TEMPLATES = r'clsTemplate\((.*)\)'  # clsTemplate()
+P_WHITESPACE = r'\s+'  # 空白
+P_COMMA_SPACE = r'\s*,\s*'  # 逗号
 
 
 # remove comment
@@ -142,7 +142,7 @@ class ClassParser:
         vo = VarVo()
         vo.name = arr[1]
         vo.defaultValue = arr[3] if l == 4 else None
-        res = re.search('([\-%*]*)(\S+)', arr[0])
+        res = re.search(r'([\-%*]*)(\S+)', arr[0])
         vo.type = res.group(2)
         addition = res.group(1)
         vo.isDel = addition.find('-') != -1
