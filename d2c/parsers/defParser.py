@@ -6,16 +6,15 @@ import re
 from ..function import indexOfKey
 from ..varVo import TemplateInfo, ManageVo, ClassVo, VarVo
 
-
-P_INDEXS = r'index\((.*)\)'  # index()
-P_TEMPLATES = r'template\((.*)\)'  # template()
-P_CLS_TEMPLATES = r'clsTemplate\((.*)\)'  # clsTemplate()
-P_WHITESPACE = r'\s+'  # 空白
-P_COMMA_SPACE = r'\s*,\s*'  # 逗号
+P_INDEXS: str = r'index\((.*)\)'  # index()
+P_TEMPLATES: str = r'template\((.*)\)'  # template()
+P_CLS_TEMPLATES: str = r'clsTemplate\((.*)\)'  # clsTemplate()
+P_WHITESPACE: str = r'\s+'  # 空白
+P_COMMA_SPACE: str = r'\s*,\s*'  # 逗号
 
 
 # remove comment
-def removeComment(s):
+def removeComment(s) -> str:
     # '#' or '//' is comment
     l = len(s)
     idx1 = s.find('#')
