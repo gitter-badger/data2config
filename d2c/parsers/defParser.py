@@ -4,7 +4,8 @@
 import re
 
 from ..function import indexOfKey
-from ..varVo import *
+from ..varVo import TemplateInfo, ManageVo, ClassVo, VarVo
+
 
 P_INDEXS = r'index\((.*)\)'  # index()
 P_TEMPLATES = r'template\((.*)\)'  # template()
