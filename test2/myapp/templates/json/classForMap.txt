@@ -2,8 +2,10 @@ filename:{{ class.name }}_Data.lua
 -----
 return {
 {% for row in rows -%}
-["{% for var in row.indexVars %}{{ var.value }}{% if not loop.last %}_{% endif %}{% endfor %}"]={{ '{' }}
-{%- for var in row.vars -%}{{ var.name }}={{ var.valuew }}{% if not loop.last %},{% endif %}{% endfor -%}
-{{ '}' }}{% if not loop.last %},{% endif %}
+    ["{{ row.indexVars|join('_', attribute='value') }}"]={
+        {%- for var in row.vars -%}
+            {{ var.name }}={{ var.valuew }}{% if not loop.last %},{% endif %}
+        {%- endfor -%}
+    }{% if not loop.last %},{% endif %}
 {% endfor -%}
 }
