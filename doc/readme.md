@@ -13,3 +13,49 @@ staticvo.txt
 2. filename:  in template file              // 模板文件中定义
 3. template name                            // 与模板文件名同名         
 
+
+
+config.yml
+~~~~
+
+# 输出文件夹
+output_dir: ../dest/
+# excel目录
+data_dir: excel/
+# 模板目录
+template_dir: templates/lua
+
+# 管理器的模板
+main_templates:
+  - staticData.txt
+
+# 每个excel的默认模板
+cls_templates:
+  - classForMap.txt
+#  - classForMapExtend.txt: true
+
+
+# 具体文件的模板,未实现
+specific_template:
+  - xxxfile.xlsx:
+    - classForMap.txt
+~~~
+
+
+#### Excel文件头格式
+
+1. 简单描述
+2. 变量名 INT,FLOAT,STRING,BOOL
+3. 变量类型
+4. 变量输出标签 A:All(导出到所有) C:Client(导出到客户端) S:Server(导出到服务器) N:Note(不导出，紧策划看)
+5. 内容正式开始
+
+例如：
+
+| 序号 | 道具名字 |  价格 |   Note   |
+|:----:|:--------:|:-----:|:--------:|
+|  id  |   name   | price |   Note   |
+|  INT |  STRING  |  INT  |  STRING  |
+|   A  |     A    |   A   |     N    |
+|  100 |   石头   |   10  | 这是说明 |
+|  101 |   木材   |   10  | 这是说明 |
