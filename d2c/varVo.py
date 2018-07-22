@@ -2,7 +2,7 @@
 # coding=utf-8
 
 
-def getValueWrap(value, type: str):
+def getValueWrap(value: str, type: str) -> str:
     type = type.lower()
     # 返回属性值的包装
     if 'string' == type:
@@ -129,5 +129,5 @@ class ClassVo:
         self.originVars: [VarVo] = []  # <VarVo> 原始变量列表
 
     def clsName(self):
-        _name:str = self.name or ''
+        _name: str = self.name or ''
         return _name[0].upper() + _name[1:]
