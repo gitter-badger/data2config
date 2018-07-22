@@ -130,6 +130,7 @@ class ClassVo:
         self.originIndexs: [int] = []  # <int> 原始的引属性值列表(包含被删除的)
         self.originVars: [VarVo] = []  # <VarVo> 原始变量列表
 
-    def clsName(self):
+    @property
+    def clsName(self) -> str:
         _name: str = self.name or ''
         return _name[0].upper() + _name[1:]
