@@ -27,3 +27,9 @@ def indexOfKey(array, value, key):
         if v[key] == value:
             return i
     return -1
+
+
+def upper_first(s: str) -> str:
+    if len(s) > 0:
+        return s[0].upper() + s[1:]
+    return s

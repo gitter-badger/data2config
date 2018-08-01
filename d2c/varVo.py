@@ -1,6 +1,7 @@
 #!/bin/python
 # coding=utf-8
 
+from .function import upper_first
 
 def getValueWrap(value: str, type: str) -> str:
     type = type.lower()
@@ -23,8 +24,8 @@ def getValueWrap(value: str, type: str) -> str:
 
 class TemplateInfo:
     def __init__(self, name: str, dont_rewrite: bool = False):
-        self.name = name
-        self.dont_rewrite = dont_rewrite
+        self.name: str = name
+        self.dont_rewrite: bool = dont_rewrite
 
 
 # string      name             // 文件名 xxx.csv
@@ -132,5 +133,4 @@ class ClassVo:
 
     @property
     def clsName(self) -> str:
-        _name: str = self.name or ''
-        return _name[0].upper() + _name[1:]
+        return upper_first(self.name or '')
