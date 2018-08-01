@@ -1,9 +1,14 @@
 #!/usr/bin/python
 # coding=utf-8
 
-from litefeel.pycommon.io import read_file
-import yaml
+from __future__ import annotations
+
 import os
+from typing import Dict, List
+
+import yaml
+from litefeel.pycommon.io import read_file
+
 from .varVo import TemplateInfo
 
 
@@ -14,11 +19,13 @@ def make_arr(s) -> [str]:
         return [str]
     return s
 
+
 # return (k, v)
 def first(dic):
     for k, v in dic.items():
         return (k, v)
     return (None, None)
+
 
 def make_infos(s) -> [TemplateInfo]:
     if s is None:
@@ -40,14 +47,14 @@ def make_infos(s) -> [TemplateInfo]:
 
 class Config:
     def __init__(self):
-        self.idlPath = None  # 描述文档路径
-        self.templateDir = ''  # 模板文件目录
-        self.outputDir = None  # 输出文件目录
-        self.dataDir = None  # 输入文件目录
+        self.templateDir: str = ''  # 模板文件目录
+        self.outputDir: str = None  # 输出文件目录
+        self.dataDir: str = None  # 输入文件目录
         self.main_templates: [TemplateInfo] = []
         self.cls_templates: [TemplateInfo] = []
+        self.specific_template: Dict[str, TemplateInfo] = {}
 
-    def load(self, path) -> 'Config':
+    def load(self, path) -> Config:
         data = read_file(path)
         data = yaml.load(data)
         root = os.path.dirname(path)
@@ -58,14 +65,11 @@ class Config:
         self.cls_templates = make_infos(data['cls_templates'])
         return self
 
-    def setIdlPath(self, path):
-        self.idlPath = path
+    # def setTemplateDir(self, path):
+    #     self.templateDir = path
 
-    def setTemplateDir(self, path):
-        self.templateDir = path
+    # def setOutputDir(self, path):
+    #     self.outputDir = path
 
-    def setOutputDir(self, path):
-        self.outputDir = path
-
-    def setDataDir(self, path):
-        self.dataDir = path
+    # def setDataDir(self, path):
+    #     self.dataDir = path
