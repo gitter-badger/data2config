@@ -16,7 +16,7 @@ staticvo.txt
 
 
 config.yml
-~~~~
+~~~ yml
 
 # 输出文件夹
 output_dir: ../dest/
@@ -32,13 +32,14 @@ main_templates:
 # 每个excel的默认模板
 cls_templates:
   - classForMap.txt
-#  - classForMapExtend.txt: true
+  - classForMapExtend.txt: true
 
 
 # 具体文件的模板,未实现
 specific_template:
   - xxxfile.xlsx:
     - classForMap.txt
+
 ~~~
 
 
