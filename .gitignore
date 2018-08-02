@@ -60,3 +60,7 @@ target/
 
 # vscode
 .vscode/.ropeproject
+
+
+# pytest
+.pytest_cache/
