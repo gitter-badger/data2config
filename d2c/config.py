@@ -45,6 +45,11 @@ def make_infos(s) -> [TemplateInfo]:
     return arr
 
 
+def make_info_dict(arr:[any]):
+    if not arr:
+        return {}
+    
+
 class Config:
     def __init__(self):
         self.templateDir: str = ''  # 模板文件目录
@@ -63,6 +68,7 @@ class Config:
         self.dataDir = os.path.join(root, data['data_dir'])
         self.main_templates = make_infos(data['main_templates'])
         self.cls_templates = make_infos(data['cls_templates'])
+        self.specific_template = make_info_dict(data['specific_template'])
         return self
 
     # def setTemplateDir(self, path):

@@ -34,6 +34,8 @@ cls_templates:
   - classForMap.txt
   - classForMapExtend.txt: true
 
+# 对于某个数据文件要使用的模板
+# 先去 specific_template 查找, 未找到才会使用 cls_templates
 
 # 具体文件的模板,未实现
 specific_template:
