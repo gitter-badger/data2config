@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
+from typing import Dict
 
 import os.path
 import re
@@ -33,3 +34,15 @@ def upper_first(s: str) -> str:
     if len(s) > 0:
         return s[0].upper() + s[1:]
     return s
+
+
+def dict_key(dic: Dict[any, any]) -> any:
+    for k, _ in dic.items():
+        return k
+    return None
+
+
+def dict_value(dic: Dict[any, any]) -> any:
+    for _, v in dic.items():
+        return v
+    return None

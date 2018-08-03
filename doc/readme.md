@@ -41,6 +41,7 @@ cls_templates:
 specific_template:
   - xxxfile.xlsx:
     - classForMap.txt
+    - dontOverride.txt: true
 
 ~~~
 
