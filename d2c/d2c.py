@@ -11,35 +11,33 @@ from .config import Config
 from .function import indexOfKey, output_filter
 from .parsers.excelHead import ExcelParser
 from .render.ExcelRender import ExcelRender
-from .varVo import ManageVo, TemplateInfo
+from .varVo import ClassVo, TemplateInfo
 
 
 class D2C:
     def __init__(self, config: Config):
-        self._config = config
-
-        self._idlParser = None
-
-        self._env = None
+        self._config: Config = config
+        self._env: Environment = None
 
     def doD2c(self):
         self._env = Environment(
             loader=FileSystemLoader(self._config.templateDir))
 
-        manage = ManageVo()
-        manage.clsTemplates = self._config.cls_templates
-        manage.templates = self._config.main_templates
-
+        classes: [ClassVo] = []
         for root, _, files in os.walk(self._config.dataDir):
             for f in files:
                 # ~$ 开头为excel打开后的临时文件
                 if f.endswith('xlsx') and not f.startswith('~$'):
                     clsVo = ExcelParser.parse(os.path.join(root, f))
-                    manage.classes.append(clsVo)
+                    classes.append(clsVo)
 
-        for template_info in manage.templates:  #type: Template_Info
+        self.render_managers(self._config, classes)
+        self.render_classes(self._config, classes)
+
+    def render_managers(self, config: Config, classes: [ClassVo]):
+        for template_info in config.main_templates:
             template = self._env.get_template(template_info.name)
-            outputData = template.render(classes=manage.classes)
+            outputData = template.render(classes=classes)
             outputData, outputName = output_filter(outputData)
             if (outputName is None):
                 outputName = template_info.name
@@ -49,8 +47,10 @@ class D2C:
             if not template_info.dont_rewrite or not os.path.exists(outputName):
                 write_file(outputName, outputData)
 
-        for cls in manage.classes:
-            render = ExcelRender(cls, manage.clsTemplates, self)
+    def render_classes(self, config: Config, classes: [ClassVo]):
+        for cls in classes:
+            templates = config.get_templates(cls.csvName)
+            render = ExcelRender(cls, templates, self)
             if not render.exists():
                 continue
             print("正在处理数值表: %s" % cls.csvName)
@@ -66,5 +66,6 @@ class D2C:
 
                 outputName = os.path.join(self._config.outputDir, outputName)
 
-                if not template_info.dont_rewrite or not os.path.exists(outputName):
+                if not template_info.dont_rewrite or not os.path.exists(
+                        outputName):
                     write_file(outputName, outputData)
