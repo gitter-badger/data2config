@@ -3,6 +3,7 @@
 
 from .function import upper_first
 
+
 def getValueWrap(value: str, type: str) -> str:
     type = type.lower()
     # 返回属性值的包装
@@ -105,6 +106,26 @@ class RowData:
         # 返回该数据对应的类
         return self._class
 
+    @property
+    def noindexVars(self) -> [VarVo]:
+        """ 非索引项列表，不包括Note """
+        arr: [VarVo] = []
+        for var in self.vars:
+            if var not in self.indexVars:
+                arr.append(var)
+        return arr
+
+    @property
+    def indexVar(self) -> VarVo:
+        """ 第一个索引项里的变量，用于key/value模板 """
+        return self.indexVars[0] if len(self.indexVars) > 0 else None
+
+    @property
+    def noindexVar(self) -> VarVo:
+        """ 第一个非索引项里的变量（不包括Note），用于key/value模板 """
+        arr = self.noindexVars
+        return arr[0] if len(arr) > 0 else None
+
     # def __getitem__(self, key):
     #     if key == 'class':
     #         return self._class
@@ -126,9 +147,9 @@ class ClassVo:
         self.name: str = None  # string 类名
         self.isMap: bool = False  # bool   该类是否为key/value形式
         self.indexNames: [str] = []  # <string> 索引属性名列表
-        self.indexs: [int] = []  # <int> 引属性值列表(不包含被删除的)
-        self.vars: [VarVo] = []  # <VarVo> 变量列表(不包含被删除的)
-        self.originIndexs: [int] = []  # <int> 原始的引属性值列表(包含被删除的)
+        self.indexs: [int] = []  # <int> 引属性值列表(不包含Note)
+        self.vars: [VarVo] = []  # <VarVo> 变量列表(不包含Note)
+        self.originIndexs: [int] = []  # <int> 原始的引属性值列表(包含Note)
         self.originVars: [VarVo] = []  # <VarVo> 原始变量列表
 
     @property

@@ -15,8 +15,9 @@ cls_templates:
   - classForMap.txt
 #  - classForMapExtend.txt: true
 
-
 # 具体文件的模板,未实现
 specific_template:
-  - xxxfile.xlsx:
+  - 道具表_Item.xlsx:
     - classForMap.txt
+    - classForArray.txt
+    - classForConst.txt

@@ -1,0 +1,7 @@
+filename:{{ class.name }}_Const.lua
+-----
+return {
+{% for row in rows -%}
+[{{ row.indexVar.valuew }}]={{ row.noindexVar.valuew }},
+{% endfor -%}
+}
