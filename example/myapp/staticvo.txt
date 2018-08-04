@@ -1,7 +1,0 @@
-
-template(staticData.txt|aaa.txt, staticData.txt)
-clsTemplate(classForMap.txt)
-
-
--------------------
-
