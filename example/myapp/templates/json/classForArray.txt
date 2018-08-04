@@ -1,4 +1,4 @@
-filename:{{ class.name }}_Data.json
+filename:{{ class.name }}_Array.json
 -------
 [
 [

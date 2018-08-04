@@ -1,0 +1,7 @@
+filename:{{ class.name }}_Const.json
+-----
+{
+{% for row in rows -%}
+"{{ row.indexVar.value }}":{{ row.noindexVar.valuew }}{%- if not loop.last %},{% endif %}
+{% endfor -%}
+}

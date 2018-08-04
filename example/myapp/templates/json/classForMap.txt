@@ -1,10 +1,10 @@
-filename:{{ class.name }}_Data.lua
+filename:{{ class.name }}_Data.json
 -----
-return {
+{
 {% for row in rows -%}
-    ["{{ row.indexVars|join('_', attribute='value') }}"]={
+    "{{ row.indexVars|join('_', attribute='value') }}":{
         {%- for var in row.vars -%}
-            {{ var.name }}={{ var.valuew }}{% if not loop.last %},{% endif %}
+            "{{ var.name }}":{{ var.valuew }}{% if not loop.last %},{% endif %}
         {%- endfor -%}
     }{% if not loop.last %},{% endif %}
 {% endfor -%}
