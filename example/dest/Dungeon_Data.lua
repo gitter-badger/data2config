@@ -1,4 +1,0 @@
-return {
-["2"]={id=2,zhujue=2,zhangjie=1,zjname="章节1",guanka=2,gkname="章节1-2",star1=700,star2=1200,star3=1700,item1=101,gailv1=1000,num1=2,item2=102,gailv2=500,num2=1,item3=103,gailv3=200,num3=1,item4=101,num4=20,money=2000,zjmiaoshu="你百无聊赖，打开摄像头，准备给为数不多的粉丝直播，并没有什么特别的节目，和在线的观众们聊聊天",gkmiaoshu="111",isjvqing=false,jvqing="",leixing=1,zhanshi="1",zjxuqiu=1,gkxuqiu=2},
-["3"]={id=3,zhujue=3,zhangjie=1,zjname="章节1",guanka=3,gkname="章节1-3",star1=0,star2=0,star3=0,item1=0,gailv1=0,num1=0,item2=0,gailv2=0,num2=0,item3=0,gailv3=0,num3=0,item4=0,num4=0,money=0,zjmiaoshu="",gkmiaoshu="",isjvqing=true,jvqing="12",leixing=0,zhanshi="",zjxuqiu=1,gkxuqiu=3}
-}
