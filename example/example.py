@@ -17,8 +17,14 @@ def testTemplate(configpath: str):
     d2c.doD2c()
 
 
+def genfiles(config: str):
+    testTemplate(os.path.join(myapppath, config))
+
+
 if __name__ == "__main__":
-    configpath = os.path.join(myapppath, 'config.yml')
-    if len(sys.argv) == 2:
-        configpath = sys.argv[1]
-    testTemplate(configpath)
+    genfiles('config_lua.yml')
+    genfiles('config_json.yml')
+    # configpath = os.path.join(myapppath, 'config.yml')
+    # if len(sys.argv) == 2:
+    #     configpath = sys.argv[1]
+    # testTemplate(configpath)
