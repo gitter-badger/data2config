@@ -1,6 +1,6 @@
 
 # 输出文件夹
-output_dir: ../dest/
+output_dir: ../dest/lua
 # excel目录
 data_dir: excel/
 # 模板目录
