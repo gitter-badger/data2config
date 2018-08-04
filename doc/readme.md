@@ -4,6 +4,10 @@ readme.md
 config.yml
 ~~~ yml
 
+# 输出字段过滤器，为空表示输出所有，否则仅输出包含在data_filter里的字段
+# 不区分大小写
+data_filter: AC
+
 # 输出文件夹
 output_dir: ../dest/
 # excel目录

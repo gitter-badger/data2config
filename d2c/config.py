@@ -13,12 +13,11 @@ from .function import dict_key, dict_value
 from .varVo import TemplateInfo
 
 
-def make_arr(s) -> [str]:
-    if s is None:
-        return []
-    if isinstance(s, str):
-        return [str]
-    return s
+def make_data_filter(s: str) -> str:
+    if not s:
+        return None
+    assert isinstance(s, str), 'data_filter in config must be string'
+    return s.strip().upper()
 
 
 # return (k, v)
@@ -73,14 +72,16 @@ class Config:
         self.templateDir: str = ''  # 模板文件目录
         self.outputDir: str = None  # 输出文件目录
         self.dataDir: str = None  # 输入文件目录
+        self.data_filter: str = None  # 数据过滤器，当不为空时，只有包含该过滤器内容的字段才会被输出
         self.main_templates: [TemplateInfo] = []
         self.cls_templates: [TemplateInfo] = []
         self.specific_template: Dict[str, [TemplateInfo]] = {}
 
     def load(self, path) -> Config:
         data = read_file(path)
-        data = yaml.load(data)
+        data: Dict[str, any] = yaml.load(data)
         root = os.path.dirname(path)
+        self.data_filter = make_data_filter(data.get('data_filter'))
         self.templateDir = os.path.join(root, data['template_dir'])
         self.outputDir = os.path.join(root, data['output_dir'])
         self.dataDir = os.path.join(root, data['data_dir'])

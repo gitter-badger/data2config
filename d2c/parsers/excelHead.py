@@ -2,12 +2,19 @@ import os
 
 from openpyxl import Workbook, load_workbook, worksheet
 
+from ..config import Config
 from ..varVo import ClassVo, RowData, VarVo
+
+
+def is_skip_field(flag: str, data_filter: str) -> bool:
+    if not data_filter:
+        return False
+    return flag.upper() not in data_filter
 
 
 class ExcelParser:
     @classmethod
-    def parse(cls, excelPath) -> ClassVo:
+    def parse(cls, excelPath: str, config: Config) -> ClassVo:
         wb = load_workbook(os.path.abspath(excelPath), data_only=True)
         ws = wb.active
         max_col = ws.max_column
@@ -18,7 +25,7 @@ class ExcelParser:
             sep='.', maxsplit=2)[0].split(sep='_')[1]
 
         # read all vars
-        for i in range(1, max_col+1):
+        for i in range(1, max_col + 1):
             name_cell = ws.cell(row=2, column=i)
             var_name = name_cell.value
             var_type = ws.cell(row=3, column=i).value
@@ -27,7 +34,7 @@ class ExcelParser:
             clsVo.originVars.append(varvo)
             varvo.isDel = not var_name or not var_type
             if not varvo.isDel:
-                varvo.isDel = 'S' == exprot
+                varvo.isDel = is_skip_field(exprot, config.data_filter)
             if varvo.isDel:
                 continue
 

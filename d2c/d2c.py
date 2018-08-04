@@ -28,7 +28,7 @@ class D2C:
             for f in files:
                 # ~$ 开头为excel打开后的临时文件
                 if f.endswith('xlsx') and not f.startswith('~$'):
-                    clsVo = ExcelParser.parse(os.path.join(root, f))
+                    clsVo = ExcelParser.parse(os.path.join(root, f), self._config)
                     classes.append(clsVo)
 
         self.render_managers(self._config, classes)
