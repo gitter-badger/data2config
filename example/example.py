@@ -1,5 +1,6 @@
 import os
 import sys
+from var_dump import var_dump
 
 abspath = os.path.abspath(os.path.join(__file__, '../..'))
 sys.path.append(abspath)
@@ -13,6 +14,7 @@ myapppath = os.path.join(testpath, 'myapp')
 
 def testTemplate(configpath: str):
     config = Config().load(configpath)
+    var_dump(config)
     d2c: D2C = D2C(config)
     d2c.doD2c()
 

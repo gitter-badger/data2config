@@ -2,3 +2,4 @@ jinja2
 litefeel-pycommon
 openpyxl
 pyYaml
+var_dump
