@@ -1,5 +1,6 @@
 # data2config
-[![Build Status](https://travis-ci.org/litefeel/data2config.svg?branch=master)](https://travis-ci.org/litefeel/data2config) [![Join the chat at https://gitter.im/litefeel/data2config](https://badges.gitter.im/litefeel/data2config.svg)](https://gitter.im/litefeel/data2config?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/litefeel/data2config.svg?branch=master)](https://travis-ci.org/litefeel/data2config)
+[![Join the chat at https://gitter.im/litefeel/data2config](https://badges.gitter.im/litefeel/data2config.svg)](https://gitter.im/litefeel/data2config?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 从Excel表导出配置文件
 
