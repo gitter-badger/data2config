@@ -1,9 +1,0 @@
-filename:{{ class.name }}_Data.lua
--------
-return {
-{% for row in rows -%}
-    {{ '{' }}
-    {%- for var in row.vars -%}{{ var.name }}={{ var.valuew }}{% if not loop.last %},{% endif %}{% endfor -%}{{ '}' }}
-    {%- if not loop.last %},{% endif %}
-{% endfor -%}
-}
